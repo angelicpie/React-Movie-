@@ -2,12 +2,14 @@ import { ButtonGroup, ImageGrid, Pagination } from '@/components';
 import { getImageUrl, type ImageCell, type MovieRespsonse, TRENDING_ENDPOINT } from '@/core';
 import { useTmdb } from '@/hooks';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 export const TrendingView = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState<number>(1);
-  const { mediaType = 'movie', interval = 'day' } = useParams();
+  const { mediaType = 'movie' } = useParams();
+  const interval = searchParams.get('interval') ?? 'day';
 
   const { data } = useTmdb<MovieRespsonse>(`${TRENDING_ENDPOINT}/${mediaType}/${interval}`, { page });
 
@@ -30,7 +32,7 @@ export const TrendingView = () => {
             { label: 'TV Shows', value: 'tv' },
           ]}
           onClick={(value) => {
-            navigate(`/trending/${value}/${interval}`);
+            navigate(`/trending/${value}?interval=${interval}`);
             setPage(1);
           }}
         />
@@ -41,7 +43,7 @@ export const TrendingView = () => {
             { label: 'Week', value: 'week' },
           ]}
           onClick={(value) => {
-            navigate(`/trending/${mediaType}/${value}`);
+            setSearchParams({ interval: value });
             setPage(1);
           }}
         />

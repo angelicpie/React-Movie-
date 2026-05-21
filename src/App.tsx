@@ -1,7 +1,7 @@
 import { MainLayout } from '@/layouts/MainLayout';
 import { ErrorView, GenreView, HomeView, ReviewsView, TrendingView, MoviesView, TelevisionView, CreditsView, TrailerView, SeasonsView, EpisodeView, PersonView, CareerView, ImagesView, SearchView } from '@/views';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { MovieView } from './views/media/MovieView';
+import { MovieView } from './views/media/movies/MovieView';
 
 export const App = () => {
   return (
@@ -11,7 +11,7 @@ export const App = () => {
         <Route path="/movies" element={<Navigate to="/movies/category/now_playing" replace />} />
         <Route path="/movies/category/:filterType" element={<MoviesView />} />
 
-        <Route path="/trending/:mediaType/:interval" element={<TrendingView />} />
+        <Route path="/trending/:mediaType" element={<TrendingView />} />
         <Route path="/genre/:mediaType/:genre" element={<GenreView />} />
 
         <Route path="/movie/:id" element={<MovieView />}>
