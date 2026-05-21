@@ -1,4 +1,4 @@
-import { Link } from '@/components';
+import { Link } from '@/components/controls/links/Link';
 
 type LinkGroupProps = {
   options: Array<{
